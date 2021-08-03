@@ -1,1 +1,61 @@
-hh
+  pipeline { 
+
+    environment { 
+
+        registry = "hossamesaaa/pipeline" 
+
+        registryCredential = 'docker-creditional' 
+
+        dockerImage = '' 
+
+    }
+
+    agent any 
+
+    stages { 
+
+        stage('Cloning our Git') { 
+
+            steps { 
+                git 'https://github.com/HossamAhmedEsaa/bakehouse-updated.git' 
+
+            }
+
+        } 
+
+        stage('Building our image') { 
+
+            steps { 
+
+               script { 
+
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+
+                }
+
+            } 
+
+        }
+
+        stage('Deploy our image') { 
+
+            steps { 
+
+                script { 
+
+                    docker.withRegistry( '', registryCredential ) { 
+
+                        dockerImage.push() 
+
+                    }
+
+                } 
+
+            }
+
+        } 
+
+        
+    }
+
+}

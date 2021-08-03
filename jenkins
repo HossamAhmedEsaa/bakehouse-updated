@@ -8,7 +8,7 @@
 
         dockerImage = '' 
 
-    }
+      }
 
     agent any 
 
@@ -21,7 +21,7 @@
                 checkout scm
             }
 
-        } 
+           } 
 
         stage('Building our image') { 
 
@@ -34,9 +34,9 @@
                    sh " docker login -username hossamesaaa --password $dockerpass  "
 				}
 
-            } 
+               } 
 
-        }
+             }
 
         stage('Deploy our image') { 
 
@@ -50,16 +50,16 @@
                      sh "docker push $registry "
                     }
 
-                } 
+                  } 
 
-            }
+               }
 
         } 
 
         
     }
 
-}
+
 
 
 

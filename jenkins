@@ -1,4 +1,4 @@
-  pipeline { 
+pipeline { 
 
     environment { 
 
@@ -17,8 +17,8 @@
         stage('Cloning our Git') { 
 
             steps { 
-                git 'https://github.com/HossamAhmedEsaa/bakehouse-updated.git' 
-
+                //git 'https://github.com/HossamAhmedEsaa/bakehouse-updated.git' 
+                checkout scm
             }
 
         } 
@@ -29,9 +29,10 @@
 
                script { 
 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-
-                }
+                   // dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                   sh "docker build -t hossamesaaa/pipeline:$BUILD_NUMBER ."
+                   sh " docker login -username hossamesaaa --password $dockerpass  "
+				}
 
             } 
 
@@ -43,10 +44,10 @@
 
                 script { 
 
-                    docker.withRegistry( '', registryCredential ) { 
+                   // docker.withRegistry( '', registryCredential ) { 
 
-                        dockerImage.push() 
-
+                     //   dockerImage.push() 
+                     sh "docker push $registry "
                     }
 
                 } 

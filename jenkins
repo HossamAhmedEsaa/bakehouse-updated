@@ -8,7 +8,7 @@ pipeline {
 
         dockerImage = '' 
 
-    }
+        }
 
     agent any 
 
@@ -19,10 +19,10 @@ pipeline {
             steps { 
                 //git 'https://github.com/HossamAhmedEsaa/bakehouse-updated.git' 
                 checkout scm
-            }
+               }
 
-        } 
-
+             } 
+  
         stage('Building our image') { 
 
             steps { 
@@ -34,9 +34,9 @@ pipeline {
                    sh " docker login -username hossamesaaa --password $dockerpass  "
 				}
 
-            } 
+                  } 
 
-        }
+              }
 
         stage('Deploy our image') { 
 
@@ -48,13 +48,13 @@ pipeline {
 
                      //   dockerImage.push() 
                      sh "docker push $registry "
-                    }
+                    
 
-                } 
+                   } 
 
-            }
+               }
 
-        } 
+          } 
 
         
     }

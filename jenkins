@@ -1,21 +1,39 @@
-pipeline {
-    agent any
+pipeline { 
 
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+   
+    agent any 
+
+      stages { 
+
+            stage ('pull image from dockerhub ') {
+               withCredentials([usernameColonPassword(credentialsId: 'my-docker', variable: 'mydev')]) {
+                sh "docker login -u hossamesaa2019@gmail.com -p ${hossam_password }"
+               }
+               
+                 sh "docker pull hossamesaaa/pipeline"
+               }
+
+        stage('create deployment') { 
+
+            steps { 
+
+               script { 
+
+                   sh "Kubectl create ns dev "
+                   sh "kubectl apply -f deploy.yaml  "
+                   sh "kubectl apply -f service.yaml "
+
+		            }
+
+                 } 
+
+             }
+
+        
+
+        
     }
+
 }
+
+

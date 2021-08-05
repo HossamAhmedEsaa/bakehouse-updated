@@ -6,7 +6,7 @@ pipeline {
       stages { 
 
             stage ('pull image from dockerhub ') {
-               withCredentials([usernameColonPassword(credentialsId: 'my-docker', variable: 'myprod')]) {
+               withCredentials([usernameColonPassword(credentialsId: 'my-docker', variable: 'mytest')]) {
                 sh "docker login -u hossamesaa2019@gmail.com -p ${hossam_password }"
                }
                
@@ -19,7 +19,7 @@ pipeline {
 
                script { 
 
-                   sh "Kubectl create ns prod"
+                   sh "Kubectl create ns test"
                    sh "kubectl apply -f deploy.yaml  "
                    sh "kubectl apply -f service.yaml "
 

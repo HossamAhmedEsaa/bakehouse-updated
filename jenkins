@@ -4,10 +4,6 @@
 
         registry = "hossamesaaa/pipeline" 
 
-        registryCredential = 'docker-creditional' 
-
-        dockerImage = '' 
-
       }
 
     agent any 
